@@ -1,7 +1,264 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Location Search Tool</title>
+    <link rel="stylesheet" type="text/css" href="http://static.pinpointers.com/Lib/Sencha/Extjs/3.4.0/resources/css/ext-all.css"/>
+	<style>
+		.mark-combo-match {background-color:yellow;}
+	</style>
+	<script type="text/javascript" src="http://static.pinpointers.com/Lib/Sencha/Extjs/3.4.3/adapter/ext/ext-base-debug.js"></script>
+	<script type="text/javascript" src="http://static.pinpointers.com/Lib/Sencha/Extjs/3.4.3/ext-all-debug.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script>
+	Ext.onReady(function() {
+		
+		var map,
+		mapOptions = {
+			center: new google.maps.LatLng(51.067577, -1.795812),
+			zoom: 8
+		},
+		mapSize,
+		mapGeocoder,
+		findLocationStore,
+		findLocationRecord,
+		searchCombo;
+		
+		//this.placemarkerStore = 
+		
+		this.findLocationStore = new Ext.data.JsonStore({
+			storeId: 'FindLocationStore',
+            fields: [
+                {
+                    name: 'id'
+                },
+                {
+                    name: 'Name',
+					sortType: Ext.data.SortTypes.asUCString
+                },
+                {
+                    name: 'Lat'
+                },
+                {
+                    name: 'Lon'
+                },
+				{
+					name: 'IsPlacemarker'
+				},
+				{
+					name: ' MapIcon'
+				}
+            ]
+		});
+		
+		this.findLocationRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record
+			{name: 'id'},
+			{name: 'Name'},
+			{name: 'Lat'},
+			{name: 'Lon'},
+			{name: 'IsPlacemarker'},
+			{name: 'MapIcon'}
+		]);
+		
+		this.searchCombo = new Ext.form.ComboBox({
+			mode: 'local',
+			store: 'FindLocationStore',
+			displayField: 'Name',
+			valueField: 'id',
+			triggerAction: 'all',
+			queryDelay: 500,
+			emptyText: 'Start typing to search for a location...',
+			listEmptyText: 'Sorry no results were found',
+			width: 220,
+			listWidth: 300
+		});
+		//Combo overrides...
+		this.searchCombo.doQuery = Ext.createDelegate(comboDoQueryOverride, this, [this.searchCombo], 0);
+		this.searchCombo.onTriggerClick = Ext.createDelegate(comboOnTriggerClickOverride, this, [this.searchCombo]);
+		
+		new Ext.Viewport({
+			layout: 'fit',
+			items: [{
+				html: 'Loading Map...',
+				listeners: {
+					render: function(p) {
+						initMap(p);
+					},
+					resize: function(el,w,h) {
+						resizeMap(el,w,h);
+					},
+					scope:this
+				},
+				tbar: {
+					 items: [{
+						xtype: 'tbtext',
+						text: 'Location Search:',
+						style: 'font-weight:bold;'
+					 },{
+						xtype: 'container',
+						layout: 'hbox',
+						width: 250,
+						//id: 'locationSearchContainer',
+						items: [
+								this.searchCombo
+							,{
+								xtype: 'button',
+								iconCls: 'clear',
+								cls: 'x-toolbar-standardbutton',
+								flex: 1
+								//ref: '../btnClearFindLocation'
+							}
+						]
+					}]
+				}
+			}]
+		});
+		
+		
+		
+		
+		this.searchCombo.onTriggerClick = function(){
+		
+			if(this.isExpanded()){
+					this.collapse();
+					this.el.focus();
+			} else {
+				this.expand();
+				this.el.focus();
+
+				if(Ext.isEmpty(this.getValue())) {
+					this.store.removeAll();
+					performPlacemarkerSearch();
+				} else {
+
+				}
+			}
+
+		};
+				
+		function initMap(p) {
+			this.map =  new google.maps.Map(p.body.dom, mapOptions);
+			this.mapGeocoder = new google.maps.Geocoder();
+		}
+		
+		function resizeMap(el,w,h) {
+			if (this.map!=null) {
+				if(h>0 && w>0) {
+					if (this.map!=null) {
+						var c=this.map.getDiv();
+						c.style.height=h+'px';
+						c.style.width=w+'px';
+					}
+					this.mapSize={width:w, height: h};
+				}
+				google.maps.event.trigger(this.map, 'resize');
+			} else {
+				this.mapSize={width:w, height: h};
+			}
+		
+		}
+		
+		function comboDoQueryOverride(cmb, q, forceAll) {
+			q = Ext.isEmpty(q) ? '' : q;
+			var qe = {
+			  query: q,
+			  forceAll: forceAll,
+			  combo: cmb,
+			  cancel:false
+			};
+			if(cmb.fireEvent('beforequery', qe)===false || qe.cancel){
+			  return false;
+			}
+			q = qe.query;
+
+			if(cmb.lastQuery !== q){
+				//Clear any previous search results
+				cmb.store.removeAll();
+				performPlacemarkerSearch();
+				//If user has keyed in at least 3 chars then perform a Geocoder request
+				if(q.length > 2) {
+					performLocationSearch(q);
+				}
+			} else {
+				cmb.onLoad();
+			}
+		}
+		
+		function comboOnTriggerClickOverride(cmb) {
+			if(cmb.isExpanded()){
+				cmb.collapse();
+				cmb.el.focus();
+			} else {
+				cmb.expand();
+				cmb.el.focus();
+
+				if(Ext.isEmpty(cmb.getValue())) {
+					cmb.store.removeAll();
+					performPlacemarkerSearch();
+				} else {
+
+				}
+			}
+		}
+		
+		function performLocationSearch(text) {
+			var request = {
+				address: text,
+				bounds: this.map.getBounds(),
+				//Bias results to UK
+				region: 'uk'
+			};
+			this.mapGeocoder.geocode(request, locationSearchResultHandler);
+		}
+		
+		function performPlacemarkerSearch() {
+			console.log('performPlacemarkerSearch');
+		}
+		
+		function locationSearchResultHandler(results, status) {
+			if(results.length>0) {
+
+				var result;
+
+				for(var i=0; i<results.length; i++) {
+					result = results[i];
+					var rec = new this.findLocationRecord({
+						//Manually create a new ID here based on array idx
+						id: 'geocode-result-'+i,
+						Name: result.formatted_address,
+						Lat: result.geometry.location.lat(),
+						Lon: result.geometry.location.lng(),
+						IsPlacemarker: false,
+						MapIcon: null
+					});
+
+					this.findLocationStore.add(rec);
+				}
+
+				//this.appHub.raiseEvent('findlocationstoreloaded');
+				this.searchCombo.onLoad();
+				// var nodes = this.searchCombo.view.getNodes();
+				// for (var i = 0; i < nodes.length; i++) {
+					// var n = nodes[i];
+					// var d = this.searchCombo.view.getRecord(n).data;
+					// var re = new RegExp('(.*?)(' + '' + Ext.escapeRe(this.searchCombo.getRawValue()) + ')(.*)', this.searchCombo.caseSensitive ? '' : 'i');
+					// var h = d[this.searchCombo.displayField];
+
+					// h = h.replace(re, '$1<span class="mark-combo-match">$2</span>$3');
+					// n.innerHTML = n.innerHTML.split("&nbsp;")[0] + "&nbsp;" + h;
+				// }
+			}
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
+	</script>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
 </body>
 </html>
