@@ -1,0 +1,22 @@
+body  {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+.spacer {
+	margin-left: 0.5em;
+}
+
+.tools {
+	padding-left: 0px;
+}
+
+.tools li {
+	color: #FFF;
+	text-shadow: 0 1px 0 rgba(0,0,0,.15);
+	line-height: 32px;
+	display: inline;
+	border-radius: 4px;
+	font-size: 12px;
+	background: #286090;
+	padding: 4px 9px;
+}

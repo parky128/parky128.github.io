@@ -1,75 +1,67 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>parky128.github.io</title>
+      <title>Rob Parker | Web Developer</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<style>
-		.spacer {
-			margin-left: 0.5em;
-		}
-	</style>
+	<link rel="stylesheet" href="portfolio.css">
   </head>
-  <body>
-  
-    <div class="container">
-	<hr>
-	<div class="well well-sm">
-		<h1>Rob Parker <small><a href="https://github.com/parky128" target="_blank">/parky128</a></small></h1>
-		<p>Welcome to my GitHub user page showcasing some working examples of what can be found across my repositories and other applications I have worked on.</p>
-	</div>
-	<h2>Sencha ExtJS & Google Maps Mashups</h2>
-	<hr>	
-	<div>
-		<h4>Google Maps Location Search</h4>
-		<h5><li>Built with ExtJS 3 & Google Maps V3 API</h5>
-		<p>A simple barebones example of a location search tool using the Geocoder service from the Google Maps Javascript API - mostly written with ExtJS 3. </p>
-		<p><a class="btn btn-default" href="http://parky128.github.io/extjs3-gmaps-locationsearch/" target="_blank" role="button">View Demo <span class="glyphicon glyphicon-eye-open"></span></a><a class="btn btn-default spacer" href="https://github.com/parky128/extjs3-gmaps-locationsearch" target="_blank" role="button">Source&nbsp;<span class="glyphicon glyphicon-download"></span></a></p>
-	</div>
-	<hr>
-	<div>
-	  <h4>Live Updates with Map Display</h4>
-	  <h3>CURRENTLY UNDER DEVELOPMENT</h3>
-	  <h5><li>Built with ExtJS 4 & Google Maps V3 API</h4>
-	  <p>A list of vehicle locations updating dynamically via AJAX requests with associated markers displayed on a Google Map</p>
-	  <p><a class="btn btn-default" href="#"  role="button">View Demo&nbsp;<span class="glyphicon glyphicon-eye-open"></span></a><a class="btn btn-default spacer" href="#" target="_blank" role="button">Source&nbsp;<span class="glyphicon glyphicon-download"></span></a></p>
-	</div>
-	<hr>
-	<div>
-	  <h4>POI Management</h4>
-	  <h5><li>Built with ExtJS 4 & Google Maps V3 API</h5>
-	  <p>A map display with a custom Add POI tool button shown in the top left corner of the map above the zoom\pan controls. When the button is clicked, an icon is shown on the map, click again at the location with your mouse to create a new map marker.</p>
-	  <p><a class="btn btn-default" href="http://parky128.github.io/extjs4-gmaps-poimanager/" target="_blank" role="button">View Demo&nbsp;<span class="glyphicon glyphicon-eye-open"></span></a><a class="btn btn-default spacer" href="https://github.com/parky128/extjs4-gmaps-poimanager" target="_blank" role="button">Source&nbsp;<span class="glyphicon glyphicon-download"></span></a></p>
-	</div>
-	<hr>
-	<div>
-	  <h4>Passenger Real Time Bus Route Display</h4>
-	  <h5><li>Built with Sencha ExtJS4\Touch using Sencha Architect + Google Maps V3 API</h5>
-	  <p>A live updating Google Map display, showing a bus route overlay and the current locations of any vehicles operating on the route.</p>
-	  <p><a class="btn btn-default" href="http://pwp.pinpointers.com/app.html?token=A944A7409B0E4C00815F00000A68000003B700000001ABA2127FEA89" target="_blank" role="button">View Demo&nbsp;<span class="glyphicon glyphicon-eye-open"></span></a></p>
-	  <p><u>Notes: </u>
-		<li>If you don't see any vehicles operating on the route displayed on the map, then please check this <a href="http://www.prenticeofhaddington.info/123.html" target="_blank">timetable</a> and view the demo again when the next scheduled service is due to take place.
-		<li>The bus route overlay displayed on the map is provided from a KML file, loaded through the Google Maps API.
-		<li>When viewing the demo on a mobile device you will be redirected to a Sencha Touch version of the application (source is minified).
-		<li>The source code for the desktop version is not minified so feel free to view the source on the page for a closer look at what's going on under the hood.
-		<li>This application makes use of token based authentication through a Url query string parameter passed in each request made to the server.
-	  </p>
-	</div>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Rob Parker | Web Developer</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav pull-right">
+					<li class="active"><a  href="#">Home</a></li>
+					<li><a href="projects.html">Projects</a></li>
+					<li><a href="github.html">GitHub</a></li>
+                    <li><a href="cv.pdf" target="_blank">CV</a></li>
+                    
+					
+                    <!--<li><a href="https://github.com/parky128" target="_blank">Github</a></li>
+                    <li><a href="#contact">Contact</a></li>-->
 
-	<h2>AngularJS</h2>
-	<hr>
-	<div>
-	  <h4>Live Updates with Map Display</h4>
-	  <h3>CURRENTLY UNDER DEVELOPMENT</h3>
-	  <h5><li>Built with Bootstrap UI + Google Maps V3 API</h5>
-	  <p>The same functionality again, but this time putting into practice my learnings in AngularJS and Bootstrap components</p>
-	  <p><a class="btn btn-default" href="#" target="_blank" role="button">View Demo&nbsp;<span class="glyphicon glyphicon-eye-open"></span></a><a class="btn btn-default spacer" href="#" target="_blank" role="button">Source&nbsp;<span class="glyphicon glyphicon-download"></span></a></p>
-	</div>
-	<hr>
-	</div>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+	
+	<!-- Begin page content -->
+    <!--<div class="container">
+      <div class="jumbotron">
+        <h1>About Me</h1>
+		  <p>I am a web developer from Poole, Dorset and have recently moved to South Wales. I enjoy using JavaScript APIs for building rich interactive web applications and have experience working with server side technologies too.</p>
+		  <p>I am currently seeking new employment, please take a look at my previous work in my <a href="projects.html">projects</a> page and take a look at my <a href="RobertParker-CV.pdf">CV</a>.</p>
+			
+	  </div>
+    </div>-->
+	
+	<div class="jumbotron">
+      <div class="container">
+         <h1>About Me</h1>
+		  <p>I am a web developer originally from Poole, Dorset and have recently moved to South Wales. I enjoy using JavaScript APIs for building rich interactive web applications and have experience working with server side technologies too.</p>
+		  
+		  <p>Take a look at my current work in my development <a href="projects.html">projects</a> page and have a read through of my <a href="RobertParker-CV.pdf">CV</a>.</p>
+			<p>I am currently seeking new employment, on the look out for an opportunity to further my skills and would love to hear from you if would like to discuss the prospect of me working for you.
+			<p>If you would like to make contact then please drop me an <a href="mailto:parky128@hotmail.com">email.<a></p>
+      </div>
+    </div>
+
+    
+
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
