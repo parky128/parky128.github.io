@@ -46,54 +46,79 @@
 	
 	<div class="container">
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
+      <!--<div class="row">-->
+        <!--<div class="col-md-4">-->
           <h2>Pinpointers Web Application</h2>
 		  <ul class="tools">
 			<li>ExtJS&nbsp;3</li>
+			<li>HTML5</li>
+			<li>CSS</li>
 			<li>Google&nbsp;Maps&nbsp;API&nbsp;v3</li>
 			<li>AJAX/WebSocket</li>
 			<li>SQL&nbsp;Reporting&nbsp;Services</li>
 		</ul>
 		<p>The primary web application used by customers for locating vehicles in their fleet fitted with Pinpointers tracking devices.</p>
 		<p>Users are able to view current and historial position data, including speed and heading. The application makes use of AJAX requests, and also displays information on a Google Maps display.</p>
-		<p>
-			<a class="btn btn-primary" href="projects/webapplication.html" role="button">Read&nbsp;More&nbsp;</a>
-			<a class="btn btn-primary" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
-		</p>
+		<p>A couple of examples of the many cool features I have developed for this web application can be found below.</p>
+		<div class="well well-sm">
+			<h3>Location Search Tool</h3>
+			<p>Users needed to be able to search addresses and view on a Google map within the main application.</p>
+			<p>With the Google Maps API already in use, I decided to use the <a href="https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple" target="_blank">Geocoder service </a>within the API.<p/>
+			<p>Whilst this would provide users with the ability to search address, I also wanted the search tool to allow users to search across placemarkers (points of interests) stored in the database against their login account.</p>
+			<a class="btn btn-primary btn-small" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+		</div>
+		<div class="well well-sm">
+			<h3>Find Nearest Vehicle</h3>
+			<p>Typically customers use the web application for judging how far a vehicle is from a location of interest, such as their own customer sites. We needed to give users the ability to determine which of their vehicles was the closest to a given location and what the likely travel time would be.</p>
+			<p>Using Googles <a href="https://developers.google.com/maps/documentation/javascript/examples/directions-simple" target="_blank">Directions service </a> was the most obvious choice here since this is available as part of their Maps API already in use within the application.<p/>
+			<a class="btn btn-primary btn-small" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+		</div>
+
 		
-        </div>
-        <div class="col-md-4">
+		<hr>
+        <!--</div>
+        <div class="col-md-4">-->
           <h2>Pinpointers Mobile App</h2>
 		  <ul class="tools">
 			<li>Sencha&nbsp;Touch&nbsp;2</li>
+			<li>HTML5</li>
 			<li>Google&nbsp;Maps&nbsp;API&nbsp;v3</li>
 			<li>AJAX</li>
 			<li>PhoneGap&nbsp;Build</li>
 		</ul>
 		<p>A companion mobile version of the main web application, wrapped into a native iOS and Android app using PhoneGap Build, distributed on Google Play and the AppStore.</p>
 		<p>This has allowed Pinpointers users to continue tracking their vehicle movements whilst away from their places of work.</p>
-		<p>
-			<a class="btn btn-primary" href="projects/mobileapp.html" role="button">Read&nbsp;More&nbsp;</a>
-			<a class="btn btn-primary" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
-		</p>
-       </div>
-        <div class="col-md-4">
-          <h2>Public&nbsp;Web&nbsp;Pages</h2>
+		<a class="btn btn-primary" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+		<hr>
+       <!--</div>
+        <div class="col-md-4">-->
+          <h2>Coach&nbsp;Manager&nbsp;Integration</h2>
 		  <ul class="tools">
+			<li>Coach&nbsp;Manager</li>
 			<li>ExtJS&nbsp;4</li>
 			<li>Sencha&nbsp;Touch&nbsp;2</li>
 			<li>Google&nbsp;Maps&nbsp;API&nbsp;v3</li>
 			<li>AJAX/WebSocket/FTP</li>
 			<li>KML/XML</li>
-			<li>Coach&nbsp;Manager</li>
+			<li>Secuirty Tokens</li>
 		</ul>
-          <p>A purpose built application for Pinpointers' bus and coach customers which displays real time vehicle movements operating on routes they serve.</p>
-		  <p>This application works in conjunction with a feed of data from a third party booking application, Coach Manager, used widely in the bus and coach operator industry.</p>
-          <p><a class="btn btn-primary" href="projects/publicwebpages.html" role="button">Read More&nbsp;</a>
-			<a class="btn btn-primary" href="#">Watch Video&nbsp;<span class="glyphicon glyphicon-play"></span></a></p>
-        </div>
-      </div>
+		<p>Pinpointers provide vehicle tracking solutions for small to medium sized bus and coach operators, serving local school contracts and offer public transport routes.</p>
+		<p>Many of these customers use <a href="http://www.distinctive-systems.com/products/coach_manager" target="_blank">Coach Manager</a>, a contract and private hire booking system provided by <a href="http://www.distinctive-systems.com/" target="_blank">Distinctive Systems.</a></p>
+		<div class="well well-sm">
+			<h3>Pinpointers Jobs</h3>
+			<p>Through discussions with the provider, Pinpointers have been able to receive a daily XML feed of booking information sent over FTP. Using this data, Jobs are created in the database detailing the start and stop locations, expected arrival and departure times and allocated vehicle information.</p>
+			<p>With the Coach Manager information loaded, the Pinpointers database is able to use the live tracking data for allocated vehicles across the created jobs to provide real time status updates, such as whether the vehicle is running on time or has missed an expected departure.<p/>
+			<p>Watch the video below to see how I added a Jobs view to the main Pinpointers web application to give users a consolidated view of their Coach Manager contract and private hire data alongside vehicle tracking data.</p>
+			<a class="btn btn-primary btn-small" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+		</div>
+		<div class="well well-sm">
+			<h3>Public Web Pages</h3>
+			<p>Using the Coach Manager Job data discussed in the previous project example, I have developed a web application displaying allocated vehicle locations on a Google Map. Vehicles are dynamically shown and hidden whenever they start and finish operating on their allocated contracts.</p>
+			<p>I also added route overlays to the map display to display customer routes and stops visited. This was achieved using KML data, typically exported using Google MyMaps, and imported via the Google Maps API.<p/>
+			<a class="btn btn-primary btn-small" href="#">Watch&nbsp;Video&nbsp;<span class="glyphicon glyphicon-play"></span></a>
+		</div>
+        <!--</div>-->
+      <!--</div>-->
 
  
 
